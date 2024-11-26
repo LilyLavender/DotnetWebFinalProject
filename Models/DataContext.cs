@@ -54,4 +54,10 @@ public class DataContext : DbContext
     cartItem.Product = Products.Find(cartItem.ProductId);
     return cartItem;
   }
+
+  public void DeleteDiscount(Discount discount)
+  {
+    this.Remove(discount);
+    this.SaveChanges();
+  }
 }

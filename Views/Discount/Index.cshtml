@@ -17,7 +17,9 @@
                 </div>
                 <div>
                     <a class="btn btn-outline-primary btn-lg" href="#" role="button"><i class="bi bi-pen"></i> Edit</a>
-                    <a class="btn btn-outline-primary btn-lg ms-2 me-3" href="#" role="button"><i class="bi bi-x-circle"></i> Delete</a>
+                    <a class="btn btn-outline-primary btn-lg ms-2 me-3" role="button"
+                    asp-action="DeleteDiscount" asp-route-id="@d.DiscountId">
+                    <i class="bi bi-x-circle"></i> Delete</a>
                 </div>
             </div>
         </div>
