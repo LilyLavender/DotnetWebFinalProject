@@ -1,6 +1,4 @@
 # Todo
-• Employee login
-• Manage discounts
-• Modify schema
-• Employees add/edit/delete discounts
-• randomly generated disconut codes
+• Add discounts (randomly generated codes)
+• Edit discounts
+• Delete discounts
