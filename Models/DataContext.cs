@@ -60,4 +60,36 @@ public class DataContext : DbContext
     this.Remove(discount);
     this.SaveChanges();
   }
+
+  public void AddDiscount(Discount discount)
+{
+    this.Add(discount);
+    this.SaveChanges();
+}
+
+public async Task<bool> EditDiscountAsync(Discount model)
+{
+    var discountToUpdate = await Discounts.FirstOrDefaultAsync(d => d.DiscountId == model.DiscountId);
+    if (discountToUpdate != null)
+    {
+        discountToUpdate.Title = model.Title;
+        discountToUpdate.Description = model.Description;
+        discountToUpdate.DiscountPercent = model.DiscountPercent;
+        discountToUpdate.ProductId = model.ProductId;
+        discountToUpdate.Code = model.Code;
+        discountToUpdate.StartTime = model.StartTime;
+        discountToUpdate.EndTime = model.EndTime;
+
+        try
+        {
+            await SaveChangesAsync();
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+    return false;
+}
 }
