@@ -1,9 +1,12 @@
 @model IEnumerable<Discount>
 
 <h2 class="mt-3 ms-3">Discounts</h2>
+@if (User.IsInRole("northwind-employee"))
+{
 <a class="btn btn-outline-primary btn-lg mt-3 ms-3" asp-action="AddDiscount" role="button">
     <i class="bi bi-plus-circle"></i> Add Discount
 </a>
+}
 
 <div class="p-2 m-2 row row-cols-1 row-cols-lg-3 column-gap-2 featured" id="discount-row">
     @foreach (Discount d in Model)
@@ -20,16 +23,19 @@
                     <i>Discount expires: @d.EndTime?.ToString("MM/dd/yyyy")</i><br />
                     <p>Discount code: @d.Code</p>
                 </div>
-                <div>
-                    <a class="btn btn-outline-primary btn-lg" asp-action="EditDiscount" 
-                       asp-route-id="@d.DiscountId" role="button">
-                        <i class="bi bi-pen"></i> Edit
-                    </a>
-                    <a class="btn btn-outline-primary btn-lg ms-2 me-3" role="button"
-                       asp-action="DeleteDiscount" asp-route-id="@d.DiscountId">
-                        <i class="bi bi-x-circle"></i> Delete
-                    </a>
-                </div>
+                @if (User.IsInRole("northwind-employee"))
+                {
+                    <div>
+                        <a class="btn btn-outline-primary btn-lg" asp-action="EditDiscount" 
+                           asp-route-id="@d.DiscountId" role="button">
+                            <i class="bi bi-pen"></i> Edit
+                        </a>
+                        <a class="btn btn-outline-primary btn-lg ms-2 me-3" role="button"
+                           asp-action="DeleteDiscount" asp-route-id="@d.DiscountId">
+                            <i class="bi bi-x-circle"></i> Delete
+                        </a>
+                    </div>
+                }
             </div>
         </div>
     }

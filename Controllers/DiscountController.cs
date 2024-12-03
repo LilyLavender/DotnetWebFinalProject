@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 public class DiscountController : Controller
@@ -9,12 +10,14 @@ public class DiscountController : Controller
     public DiscountController(DataContext db) => _dataContext = db;
     public IActionResult Index() => View(_dataContext.Discounts.OrderBy(d => d.Title));
 
+    [Authorize(Roles = "northwind-employee")]
     public IActionResult DeleteDiscount(int id)
     {
         _dataContext.DeleteDiscount(_dataContext.Discounts.FirstOrDefault(d => d.DiscountId == id));
         return RedirectToAction("Index");
     }
 
+    [Authorize(Roles = "northwind-employee")]
     public IActionResult AddDiscount(int id)
     {
         ViewBag.Products = _dataContext.Products.Where(p => !p.Discontinued).ToList();
@@ -23,6 +26,7 @@ public class DiscountController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "northwind-employee")]
     public IActionResult AddDiscount(Discount discount)
     {
         Random rnd = new Random();
@@ -36,7 +40,7 @@ public class DiscountController : Controller
         return View();
     }
 
-    [HttpGet]
+    [Authorize(Roles = "northwind-employee"), HttpGet]
     public async Task<IActionResult> EditDiscount(int id)
     {
         var discount = await _dataContext.Discounts.FirstOrDefaultAsync(d => d.DiscountId == id);
@@ -49,7 +53,7 @@ public class DiscountController : Controller
         return RedirectToAction("Index");
     }
 
-    [HttpPost]
+    [Authorize(Roles = "northwind-employee"), HttpPost]
     public async Task<IActionResult> EditDiscount(Discount discount)
     {
         if (ModelState.IsValid)
