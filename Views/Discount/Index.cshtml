@@ -5,10 +5,10 @@
     <i class="bi bi-plus-circle"></i> Add Discount
 </a>
 
-<div class="p-2 m-2 row row-cols-1 row-cols-lg-3 featured" id="discount-row">
+<div class="p-2 m-2 row row-cols-1 row-cols-lg-3 column-gap-2 featured" id="discount-row">
     @foreach (Discount d in Model)
     {
-        <div class="col discounts px-2 py-4 border border-primary rounded-2 m-1">
+        <div class="col discounts px-2 py-4 border border-primary rounded-2 my-1" style="width: 32% !important">
             <h4>@d.Title</h4>
             <div class="mb-4">
                 @d.Description
